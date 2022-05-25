@@ -27,9 +27,9 @@
 #include "Funciones_Censo.h"
 #include "Funciones_Extras.h"
 
-#define TAM_VIVIENDAS 3
+#define TAM_VIVIENDAS 2000
 #define TAM_CENSISTAS 3
-#define TAM_CALLE 25
+#define TAM_CALLE 26
 #define TAM_TIPOVIVIENDA 4
 #define INICIOID 20000
 
