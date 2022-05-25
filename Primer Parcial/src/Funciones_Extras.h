@@ -55,7 +55,7 @@ int getFloat(float *pResultado);
 int utn_getFloat(float *pResultado, char *mensaje, char *mensajeError, float minimo, float maximo);
 
 /// @brief pide al usuario que ingrese un nombre, verifica que no se hayan ingresados caracteres
-/// 	   que no sean letras y devuelve el nombre generado
+/// 	   que no sean letras o numeros (en este caso por si ingresa altura) y devuelve el nombre generado
 ///
 /// @param cadena puntero por donde se devuelve el nombre generado
 /// @param mensaje mensaje que se imprime para pedirle al usuario que ingrese el dato

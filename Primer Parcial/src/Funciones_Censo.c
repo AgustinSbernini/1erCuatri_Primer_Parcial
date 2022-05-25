@@ -27,13 +27,12 @@ int inicializarViviendas(eViviendas* list, int len)
 int buscarSlotLibre(eViviendas* list, int len)
 {
 	int retorno = -1;
-	int indice;
 
 	if (list != NULL)
 	{
 		if (len >= 0)
 		{
-			for (indice = 0; indice < len; indice++)
+			for (int indice = 0; indice < len; indice++)
 			{
 				if(list[indice].idViviendas == -1)
 				{
@@ -186,6 +185,7 @@ int mostrarViviendas(eViviendas* list, int len, eCensista* censista, int lenCens
 
 	return retorno;
 }
+
 int mostrarCensistas (eCensista* censistas, int len)
 {
 	int retorno = -1;
