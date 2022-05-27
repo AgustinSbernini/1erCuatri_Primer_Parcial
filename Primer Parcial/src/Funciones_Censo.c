@@ -152,7 +152,7 @@ int mostrarViviendas(eViviendas* list, int len, eCensista* censista, int lenCens
 {
 	int retorno = -1;
 
-	if (list != NULL)
+	if (list != NULL && censista != NULL && tipo != NULL)
 	{
 		if (len >= 0)
 		{
@@ -202,3 +202,101 @@ int mostrarCensistas (eCensista* censistas, int len)
 
 	return retorno;
 }
+
+int mostrarViviendasConCensistas(eViviendas* list, int len, eCensista* censista, int lenCensista, eTipoDeVivienda* tipo, int lenTipo)
+{
+	int retorno = -1;
+	int contador = 0;
+
+	if (list != NULL && censista != NULL && tipo != NULL)
+	{
+		if (len >= 0)
+		{
+			for (int i = 0; i < lenCensista; i++)
+			{
+				for (int l = 0; l < len; l++)
+				{
+					if(list[l].legajoCensista == censista[i].legajoCensista)
+					{
+						contador++;
+						break;
+					}
+				}
+				if(censista[i].legajoCensista >= 100 && contador == 1)
+				{
+					printf("\n%d-%s %d años tel: %s", censista[i].legajoCensista, censista[i].nombre, censista[i].edad, censista[i].telefono);
+					printf("\n  idVivienda\t Calle\t\t\t Habitantes  Habitaciones  Tipo de Vivienda\n");
+					for(int j = 0; j < len; j++)
+					{
+						if(list[j].idViviendas >= 20000)
+						{
+							if(list[j].legajoCensista == censista[i].legajoCensista)
+							{
+								for(int k = 0; k < lenTipo; k++)
+								{
+									if(list[j].tipoVivienda == tipo[k].tipoVivienda)
+									{
+										printf("  %-14d %-23s %-11d %-13d %s\n", list[j].idViviendas, list[j].calle, list[j].cantidadPersonas,
+												list[j].cantidadHabitaciones, tipo[k].descripcion);
+									}
+								}
+							}
+						}
+					}
+					retorno = 0;
+				}
+				contador = 0;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+int buscarCantidadCensosRealizados(eViviendas* list, int len, eCensista* censista, int lenCensista, eCensosRealizados* cantCensos)
+{
+	int retorno = -1;
+	int contador = 0;
+	eCensosRealizados auxiliar;
+
+	if (list != NULL && censista != NULL && cantCensos != NULL)
+	{
+		if (len >= 0)
+		{
+			for(int i = 0; i < lenCensista; i++)
+			{
+				if(censista[i].legajoCensista >= 100)
+				{
+					for(int k = 0; k < len; k++)
+					{
+						if(censista[i].legajoCensista == list[k].legajoCensista)
+						{
+							contador++;
+						}
+					}
+					cantCensos[i].legajoCensista = censista[i].legajoCensista;
+					cantCensos[i].cantidadCensos = contador;
+					strcpy(cantCensos[i].nombre, censista[i].nombre);
+				}
+				contador = 0;
+			}
+
+			for(int i = 0; i < lenCensista; i++)
+			{
+				for(int j = i; j < lenCensista - 1; j++)
+				{
+					if(cantCensos[i].cantidadCensos < cantCensos[j].cantidadCensos)
+					{
+						auxiliar = cantCensos[i];
+						cantCensos[i] = cantCensos[j];
+						cantCensos[j] = auxiliar;
+					}
+				}
+			}
+			retorno = 0;
+		}
+	}
+
+	return retorno;
+}
+

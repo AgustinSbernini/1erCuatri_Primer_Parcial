@@ -57,6 +57,7 @@ int main(void) {
 																{2, "Departamento"},
 																{3, "Casilla"},
 																{4, "Rancho"}};
+	eCensosRealizados cantCensos[TAM_CENSISTAS];
 	if(inicializarViviendas(viviendas, TAM_VIVIENDAS) != 0)
 	{
 		printf("\nError al intentar inicializar la estructura viviendas.\n");
@@ -70,7 +71,9 @@ int main(void) {
 				"  C. BAJA VIVIENDA.\n"
 				"  D. LISTAR VIVENDAS.\n"
 				"  E. LISTAR CENSISTAS.\n"
-				"  F. Cerrar sistema.\n"
+				"  F. Listado de todos los datos de cada Censista con todos los datos de las viviendas censadas.\n"
+				"  G. El o los censistas con más censos realizados.\n"
+				"  H. Cerrar sistema.\n"
 				"Elija una opción del menú: ");
 		fflush(stdin);
 		scanf("%c", &menuPrincipal);
@@ -212,13 +215,52 @@ int main(void) {
 				mostrarCensistas(censista, TAM_CENSISTAS);
 				break;
 			case 'F':
-				printf("\n Cerrando sistema.\n");
+				if(verificadorDeViviendasCargadas > 0)
+				{
+					if(ordenarViviendasPorCalle(viviendas, TAM_VIVIENDAS) == 0)
+					{
+						if(mostrarViviendasConCensistas(viviendas, TAM_VIVIENDAS, censista, TAM_CENSISTAS, TipoDeViviendaCensada, TAM_TIPOVIVIENDA) != 0)
+						{
+							printf("\nHubo un error al intentar mostrar el listado de viviendas.\n");
+						}
+					}
+					else
+					{
+						printf("\nHubo un error al intentar ordenar las viviendas.\n");
+					}
+				}
+				else
+				{
+					printf("\nLa lista de viviendas se encuentra vacía. Por favor cargue una vivienda.\n");
+				}
+				printf("\nVolviendo al Menú Principal.\n");
+				break;
+			case 'G':
+				if(verificadorDeViviendasCargadas > 0)
+				{
+					if(buscarCantidadCensosRealizados(viviendas, TAM_VIVIENDAS,censista, TAM_CENSISTAS, cantCensos) == 0)
+					{
+						printf("\nEl censista con mas censos realizados fue %d-%s.\n",cantCensos[0].legajoCensista, cantCensos[0].nombre);
+					}
+					else
+					{
+						printf("\nHubo un error al intentar mostrar los censistas.\n");
+					}
+				}
+				else
+				{
+					printf("\nLa lista de viviendas se encuentra vacía. Por favor cargue una vivienda.\n");
+				}
+				printf("\nVolviendo al Menú Principal.\n");
+				break;
+			case 'H':
+				printf("\nCerrando sistema.\n");
 				break;
 			default:
 				printf("\nError, ingrese una opción valida.\n");
 		}
 
-	}while(menuPrincipal != 'F');
+	}while(menuPrincipal != 'H');
 
 	return 0;
 }

@@ -25,6 +25,13 @@ typedef struct
 	char descripcion[15];
 }eTipoDeVivienda;
 
+typedef struct
+{
+	int legajoCensista;
+	char nombre[51];
+	int cantidadCensos;
+}eCensosRealizados;
+
 /// @brief inicializo el ID de todas las viviendas en -1 para utilizarlo de bandera para verificar
 ///  cuales estan censadas.
 /// @param list eViviendas* puntero al array de viviendas
@@ -93,5 +100,9 @@ int mostrarViviendas(eViviendas* list, int len, eCensista* censista, int lenCens
 /// @param len int tamaño del array
 /// @return int retorna (-1) si hubo algún error (puntero en NULL o tamaño invalido) o (0) si funciono bien
 int mostrarCensistas (eCensista* censistas, int len);
+
+int mostrarViviendasConCensistas(eViviendas* list, int len, eCensista* censista, int lenCensista, eTipoDeVivienda* tipo, int lenTipo);
+
+int buscarCantidadCensosRealizados(eViviendas* list, int len, eCensista* censista, int lenCensista, eCensosRealizados* cantCensos);
 
 #endif
