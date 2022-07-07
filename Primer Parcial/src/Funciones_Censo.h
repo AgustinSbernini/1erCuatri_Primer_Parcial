@@ -105,4 +105,5 @@ int mostrarViviendasConCensistas(eViviendas* list, int len, eCensista* censista,
 
 int buscarCantidadCensosRealizados(eViviendas* list, int len, eCensista* censista, int lenCensista, eCensosRealizados* cantCensos);
 
+int mostrarMayorCensista(eCensista* censista, int lenCensista, eCensosRealizados* cantCensos);
 #endif

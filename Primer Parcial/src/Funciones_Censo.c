@@ -216,7 +216,7 @@ int mostrarViviendasConCensistas(eViviendas* list, int len, eCensista* censista,
 			{
 				for (int l = 0; l < len; l++)
 				{
-					if(list[l].legajoCensista == censista[i].legajoCensista)
+					if((list[l].legajoCensista == censista[i].legajoCensista) && (list[l].idViviendas >= 20000))
 					{
 						contador++;
 						break;
@@ -269,7 +269,7 @@ int buscarCantidadCensosRealizados(eViviendas* list, int len, eCensista* censist
 				{
 					for(int k = 0; k < len; k++)
 					{
-						if(censista[i].legajoCensista == list[k].legajoCensista)
+						if((censista[i].legajoCensista == list[k].legajoCensista) && (list[k].idViviendas >= 20000))
 						{
 							contador++;
 						}
@@ -283,13 +283,13 @@ int buscarCantidadCensosRealizados(eViviendas* list, int len, eCensista* censist
 
 			for(int i = 0; i < lenCensista; i++)
 			{
-				for(int j = i; j < lenCensista - 1; j++)
+				for(int j = i; j < lenCensista; j++)
 				{
 					if(cantCensos[i].cantidadCensos < cantCensos[j].cantidadCensos)
 					{
-						auxiliar = cantCensos[i];
-						cantCensos[i] = cantCensos[j];
-						cantCensos[j] = auxiliar;
+						auxiliar = cantCensos[j];
+						cantCensos[j] = cantCensos[i];
+						cantCensos[i] = auxiliar;
 					}
 				}
 			}
@@ -300,3 +300,27 @@ int buscarCantidadCensosRealizados(eViviendas* list, int len, eCensista* censist
 	return retorno;
 }
 
+int mostrarMayorCensista(eCensista* censista, int lenCensista, eCensosRealizados* cantCensos)
+{
+	int retorno = -1;
+
+	if(censista != NULL && cantCensos != NULL)
+	{
+		if(lenCensista > 0)
+		{
+			printf("\nEl/La/Los censista/s que más censos realizaron fueron: \n");
+			for(int i = 0; i < lenCensista; i++)
+			{
+				printf("  %d-%s\n", cantCensos[i].legajoCensista, cantCensos[i].nombre);
+
+				if(cantCensos[i].cantidadCensos > cantCensos[i + 1].cantidadCensos)
+				{
+					return 0;
+				}
+			}
+			retorno = 0;
+		}
+	}
+
+	return retorno;
+}

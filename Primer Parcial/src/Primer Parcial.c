@@ -28,7 +28,7 @@
 #include "Funciones_Extras.h"
 
 #define TAM_VIVIENDAS 2000
-#define TAM_CENSISTAS 3
+#define TAM_CENSISTAS 4
 #define TAM_CALLE 26
 #define TAM_TIPOVIVIENDA 4
 #define INICIOID 20000
@@ -52,7 +52,8 @@ int main(void) {
 	eViviendas viviendas[TAM_VIVIENDAS];
 	eCensista censista[TAM_CENSISTAS] = {{100, "Ana", 34, "1203-2345"},
 										{101, "Juan", 24, "4301-54678"},
-										{102, "Sol", 47, "5902-37487"}};
+										{102, "Sol", 47, "5902-37487"},
+										{103, "Jorge", 65, "5342-2412"}};
 	eTipoDeVivienda TipoDeViviendaCensada[TAM_TIPOVIVIENDA] =   {{1, "Casa"},
 																{2, "Departamento"},
 																{3, "Casilla"},
@@ -92,7 +93,7 @@ int main(void) {
 					utn_getInt(&cantPersonas, "Ingrese la cantidad de personas que viven en la vivienda: ", "Error, Ingrese correctamente la cantidad de personas que viven en la vivienda.\n", 1, 100);
 					utn_getInt(&cantHabitaciones, "Ingrese la cantidad de habitaciones de la vivienda: ", "Error, Ingrese correctamente la cantidad de habitaciones de la vivienda.\n", 0,100);
 					utn_getInt(&tipoVivienda, "Ingrese el tipo de vivienda (Ingrese 1 para casa, 2 para departamento, 3 para casilla, 4 para rancho): ", "Error, Ingrese correctamente el tipo de vivienda.\n",1,4);
-					utn_getInt(&legajoCensista, "Ingrese el legajo del censista(Ingrese 100 para Ana, 101 para Juan, 102 para Sol): ", "Error, ingrese un legajo valido.\n", 100, 102);
+					utn_getInt(&legajoCensista, "Ingrese el legajo del censista(Ingrese 100 para Ana, 101 para Juan, 102 para Sol): ", "Error, ingrese un legajo valido.\n", 100, 103);
 					if(altaVivienda(viviendas, TAM_VIVIENDAS, id, calle, cantPersonas,  cantHabitaciones, tipoVivienda,  legajoCensista) == 0)
 					{
 						printf("\nSe ha dado de alta a la vivienda con exito.\n");
@@ -240,7 +241,10 @@ int main(void) {
 				{
 					if(buscarCantidadCensosRealizados(viviendas, TAM_VIVIENDAS,censista, TAM_CENSISTAS, cantCensos) == 0)
 					{
-						printf("\nEl censista con mas censos realizados fue %d-%s.\n",cantCensos[0].legajoCensista, cantCensos[0].nombre);
+						if(mostrarMayorCensista(censista, TAM_CENSISTAS, cantCensos) != 0)
+						{
+							printf("\nHubo un error al intentar mostrar los censistas.\n");
+						}
 					}
 					else
 					{
